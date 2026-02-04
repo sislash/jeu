@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: you <you@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "window.h"
+#define _POSIX_C_SOURCE 199309L
+
 #include "utils.h"
 
-int	main(void)
-{
-    t_window	w;
-    
-    if (window_init(&w, "42 - Template Fenetre", 800, 600) != 0)
-        return (1);
-    while (w.running)
-    {
-        window_poll_events(&w);
-        window_present(&w);
-        ft_sleep_ms(16);
-    }
-    window_destroy(&w);
-    return (0);
-}
+#ifndef _WIN32
+# include <time.h>
 
+void	ft_sleep_ms(int ms)
+{
+    struct timespec	ts;
+    
+    if (ms <= 0)
+        return ;
+    ts.tv_sec = ms / 1000;
+    ts.tv_nsec = (long)(ms % 1000) * 1000000L;
+    nanosleep(&ts, 0);
+}
+#else
+# include <windows.h>
+
+void	ft_sleep_ms(int ms)
+{
+    if (ms <= 0)
+        return ;
+    Sleep((DWORD)ms);
+}
+#endif

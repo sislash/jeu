@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: you <you@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "window.h"
-#include "utils.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(void)
-{
-    t_window	w;
-    
-    if (window_init(&w, "42 - Template Fenetre", 800, 600) != 0)
-        return (1);
-    while (w.running)
-    {
-        window_poll_events(&w);
-        window_present(&w);
-        ft_sleep_ms(16);
-    }
-    window_destroy(&w);
-    return (0);
-}
+void	ft_sleep_ms(int ms);
 
+#endif
