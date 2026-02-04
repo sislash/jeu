@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.h                                           :+:      :+:    :+:   */
+/*   menu.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: you <you@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,35 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_H
-# define WINDOW_H
+#ifndef MENU_H
+# define MENU_H
 
-typedef struct s_window
+# include "window.h"
+
+typedef struct s_menu
 {
-    int			running;
-    const char	*title;
-    int			width;
-    int			height;
-    
-    int			key_up;
-    int			key_down;
-    int			key_enter;
-    int			key_escape;
-    
-    void		*backend_1;
-    void		*backend_2;
-    void		*backend_3;
-}	t_window;
+    const char	**items;
+    int			count;
+    int			selected;
+}	t_menu;
 
-int		window_init(t_window *w, const char *title, int width, int height);
-void	window_poll_events(t_window *w);
-
-void	window_clear(t_window *w, int color);
-void	window_fill_rect(t_window *w, int x, int y, int width, int height,
-                         int color);
-void	window_draw_text(t_window *w, int x, int y, const char *text, int color);
-
-void	window_present(t_window *w);
-void	window_destroy(t_window *w);
+void	menu_init(t_menu *m, const char **items, int count);
+int		menu_update(t_menu *m, t_window *w);
+void	menu_render(t_menu *m, t_window *w, int x, int y);
 
 #endif
